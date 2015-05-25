@@ -2,6 +2,7 @@
   <head>
     <title>littlelispjs</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/ansi.css">
   </head>
   <body>
     <div id="cons">
@@ -9,14 +10,13 @@
       Your browser does not support the HTML5 canvas tag.</canvas>
 
       <script>
-      var c = document.getElementById("canvas");
-      var ctx = c.getContext("2d");
-      ctx.beginPath();
-      ctx.arc(100, 75, 5, 0, 2 * Math.PI);
-      ctx.fillStyle="green";
-      ctx.fill();
+        var c = document.getElementById("canvas");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(100, 75, 5, 0, 2 * Math.PI);
+        ctx.fillStyle="green";
+        ctx.fill();
       </script>
-
 
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
