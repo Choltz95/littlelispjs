@@ -4,4 +4,4 @@ An implementation of classical lisp in approx. 100 lines of javascript. Inspired
 initially a 'secret' component of my personal website, I made it its own repo for management purposes.
 NOTE: This iteration does not work locally with chrome set to default settings. You need to allow Cross origin requests.
 
-to run: clone and run index.html in firefox or chrome with cross origin requests enabled. Heroku to come.
+to run: clone and run index.html in firefox or chrome with cross origin requests enabled. Deployed to http://littlelispjs.divshot.io/
