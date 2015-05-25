@@ -12,7 +12,7 @@ var Operations = {
   'cons'    : function(a, b) { return [a].concat(b); },
   'car'     : function(a)    { return a[0]; },
   'cdr'     : function(a)    { return a.slice(1); },
-  'list'    : function()     { return Array.prototype.slice.call(arguments); }
+  'list'    : function()     { return Array.prototype.slice.call(arguments); },
 };
 
 /* environment */
@@ -21,8 +21,9 @@ function Env(properties, outer) {
   this.outer      = outer      || { find : function(key) { return this; }, get : function() { return null; }, set: function() {} };
 }
 
-Env.prototype.get  = function(key)      { return this.properties[key]; };
-Env.prototype.set  = function(key, val) { this.properties[key] = val;  };
+Env.prototype.get  = function(key)      { if(this.properties[key] == 0) {return 'z';} else{return this.properties[key];};};//return this.properties[key]; };
+//Env.prototype.get  = function(key)      { return this.properties[key]; };//return this.properties[key]; };
+Env.prototype.set  = function(key, val) { this.properties[key] = val; };
 Env.prototype.find = function(key)      { return this.get(key) ? this : this.outer.find(key); };
 
 var global_env = new Env(Operations);
@@ -64,7 +65,7 @@ function parse(input) {
 function to_string(exp) {
   if (exp instanceof Array) {
       return "(" + exp.map(to_string).join(" ") + ")";
-  } else if (typeof exp == 'undefined' || exp == null) {
+  } else if (typeof exp == 'undefined' || exp === null) {
     return "null";
   } else {
     return exp.toString();
@@ -81,7 +82,11 @@ function evaluate(x, env) {
     } else if (x == 'false') {
       return false;
     } else {
-      return env.find(x).get(x);
+      ret = env.find(x).get(x);
+      if(ret == 'z') {//why do I have to do this? for some reason 0 returns null?
+        return 0;
+      } else {return ret;}
+      //return env.find(x).get(x);
     }
   } else if (x instanceof Array == false) { // else, return input
     return x;
