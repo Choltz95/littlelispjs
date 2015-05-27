@@ -9,9 +9,10 @@ var Operations = {
   '<='      : function(a, b) { return a <= b; },
   '>='      : function(a, b) { return a >= b; },
   '='       : function(a, b) { return a == b; },
+  'or'      : function(a,b)  { return a||b;   },
   'cons'    : function(a, b) { return [a].concat(b); },
-  'car'     : function(a)    { return a[0]; },
-  'cdr'     : function(a)    { return a.slice(1); },
+  'car'     : function(a)    { return (a.length !==0) ? a[0] : null; },
+  'cdr'     : function(a)    { return (a.length>1) ? a.slice(1) : null; },
   'list'    : function()     { return Array.prototype.slice.call(arguments); },
 };
 
