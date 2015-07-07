@@ -22,7 +22,7 @@ function Env(properties, outer) {
   this.outer      = outer      || { find : function(key) { return this; }, get : function() { return null; }, set: function() {} };
 }
 
-Env.prototype.get  = function(key)      { if(this.properties[key] == 0) {return 'z';} else{return this.properties[key];};};//return this.properties[key]; };
+Env.prototype.get  = function(key)      { if(this.properties[key] == 0) {return 'z';} else{return this.properties[key];};};
 //Env.prototype.get  = function(key)      { return this.properties[key]; };//return this.properties[key]; };
 Env.prototype.set  = function(key, val) { this.properties[key] = val; };
 Env.prototype.find = function(key)      { return this.get(key) ? this : this.outer.find(key); };
@@ -77,7 +77,7 @@ function to_string(exp) {
 function evaluate(x, env) {
   var _, exp, cond, conseq, alt, variable, vars, exps, proc;
 
-  if (typeof x == 'string') {  // check dict for variable
+  if (typeof x == 'string') {  // check environment for variable
     if (x == 'true') {
       return true;
     } else if (x == 'false') {

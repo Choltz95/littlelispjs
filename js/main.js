@@ -4,19 +4,19 @@ $.getScript("js/lisp.js", function(){
 
 $(function() {
 	var jqconsole = $('#cons').jqconsole('Here is a little lisp interpreter I coded in about 100 lines of javascript.\n' +
-															'The interpreter supports function invocation, lambdas, lets, ifs, numbers, strings, a few library functions, and lists\n' +
-															'Type \'sample\' for some simple and more complex test commands.\nType \'exit\' when you are finished.\n', '> ');
+						'The interpreter supports function invocation, lambdas, lets, ifs, numbers, strings, a few library functions, and lists\n' +
+						'Type \'sample\' for some simple and more complex test commands.\nType \'exit\' when you are finished.\n', '> ');
 
 	var startPrompt = function () {
-		jqconsole.SetPromptLabel('>> ');
+		jqconsole.SetPromptLabel('> ');
 		jqconsole.Prompt(true, function (input) {
 			if(input == 'clear') {
 				jqconsole.Clear();
-			} else if (input == 'sample') {
+			} else if (input == 'sample') { //print sample output
 				$.getScript("js/tests.js", function(){
 					for (var i = 0; i < tests.length; i++) {
-						jqconsole.Write('>> ' + tests[i] + '\n','jqconsole-input',false);
-				    jqconsole.Write(to_string(evaluate(parse(tests[i]), env)) + '\n','jqconsole-output',false);
+						jqconsole.Write('> ' + tests[i] + '\n','jqconsole-input',false);
+				    	jqconsole.Write(to_string(evaluate(parse(tests[i]), env)) + '\n','jqconsole-output',false);
 					}
 				});
 			} else {
@@ -30,3 +30,4 @@ $(function() {
 	};
 	startPrompt();
 });
+
