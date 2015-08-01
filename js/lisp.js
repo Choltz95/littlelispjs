@@ -23,10 +23,8 @@ function Env(properties, outer) {
 }
 
 Env.prototype.get  = function(key)      { if(this.properties[key] == 0) {return 'z';} else{return this.properties[key];};};
-//Env.prototype.get  = function(key)      { return this.properties[key]; };//return this.properties[key]; };
 Env.prototype.set  = function(key, val) { this.properties[key] = val; };
 Env.prototype.find = function(key)      { return this.get(key) ? this : this.outer.find(key); };
-
 var global_env = new Env(Operations);
 
 /* parser and to_string */
@@ -77,17 +75,16 @@ function to_string(exp) {
 function evaluate(x, env) {
   var _, exp, cond, conseq, alt, variable, vars, exps, proc;
 
-  if (typeof x == 'string') {  // check environment for variable
+  if (typeof x == 'string') {  
     if (x == 'true') {
       return true;
     } else if (x == 'false') {
       return false;
-    } else {
+    } else { // check environment for variable
       ret = env.find(x).get(x);
-      if(ret == 'z') {//why do I have to do this? for some reason 0 returns null?
+      if(ret == 'z') { // why do I have to do this? for some reason 0 returns null?
         return 0;
       } else {return ret;}
-      //return env.find(x).get(x);
     }
   } else if (x instanceof Array == false) { // else, return input
     return x;
@@ -97,7 +94,6 @@ function evaluate(x, env) {
     exp = x[1];
     return exp;
   } else if (x[0] == 'cond') {
-     //[_, cond, conseq, alt] = x;
      _ = x[0];
      cond = x[1];
      conseq = x[2];
@@ -108,13 +104,11 @@ function evaluate(x, env) {
        return evaluate(alt, env);
      }
   } else if (x[0] == 'define') {
-    //[_, variable, exp] = x;
     _ = x[0];
     variable = x[1];
     exp = x[2];
     env.set(variable, evaluate(exp, env));
   } else if (x[0] == 'lambda') {
-    //[_, vars, exp] = x;
     _ = x[0];
     vars = x[1];
     exp = x[2];
