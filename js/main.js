@@ -1,6 +1,4 @@
-$.getScript("js/lisp.js", function(){
-	env = new Env({}, global_env);
-});
+env = new Env({}, global_env);
 var input_str = "";
 
 /* REPL */
@@ -15,28 +13,20 @@ $(function() {
 			if(input == 'clear') {
 				jqconsole.Clear();
 			} else if (input == 'sample') { // print sample output
-				$.getScript("js/tests.js", function(){
-					for (var i = 0; i < tests.length; i++) {
-						jqconsole.Write('> ' + tests[i] + '\n','jqconsole-input',false);
-				    	jqconsole.Write(to_string(evaluate(parse(tests[i]), env)) + '\n','jqconsole-output',false);
-					}
-				});
+				for (var i = 0; i < tests.length; i++) {
+					jqconsole.Write('> ' + tests[i] + '\n','jqconsole-input',false);
+			    	jqconsole.Write(to_string(evaluate(parse(tests[i]), env)) + '\n','jqconsole-output',false);
+				}
 			} else { /* lisp expression */
 				if (input.match(/,$/)) {
 					jqconsole.SetPromptLabel('');
 					input = input.substring(0, input.trim().length - 1);
 					input_str = input_str.concat(input + " ");
-					console.log(input_str);
 				} else {
 					jqconsole.SetPromptLabel('> ');
 					input_str = input_str.concat(input);
-					console.log(input_str);
-					console.log(input);
-					$.getScript("js/lisp.js", function(){
-						console.log("function: " + input_str);
-						jqconsole.Write(to_string(evaluate(parse(input_str), env)) + '\n','jqconsole-output',false);
-						input_str = "";
-					});
+					jqconsole.Write(to_string(evaluate(parse(input_str), env)) + '\n','jqconsole-output',false);
+					input_str = "";
 				}
 			}
 			startPrompt();
