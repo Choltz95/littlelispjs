@@ -25,7 +25,7 @@ $(function() {
 				} else {
 					jqconsole.SetPromptLabel('> ');
 					input_str = input_str.concat(input);
-					jqconsole.Write(to_string(evaluate(parse(input_str), env)) + '\n','jqconsole-output',false);
+					jqconsole.Write(to_string(evaluate(parse(input_str.toLowerCase()), env)) + '\n','jqconsole-output',false);
 					input_str = "";
 				}
 			}
