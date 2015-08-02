@@ -9,11 +9,11 @@ var Operations = {
   '<='      : function(a, b) { return a <= b; },
   '>='      : function(a, b) { return a >= b; },
   '='       : function(a, b) { return a == b; },
-  'or'      : function(a,b)  { return a||b;   },
+  'or'      : function(a, b) { return a||b;   },
   'cons'    : function(a, b) { return [a].concat(b); },
   'car'     : function(a)    { return (a.length !==0) ? a[0] : null; },
   'cdr'     : function(a)    { return (a.length>1) ? a.slice(1) : null; },
-  'list'    : function()     { return Array.prototype.slice.call(arguments); },
+  'list'    : function()     { return Array.prototype.slice.call(arguments); }
 };
 
 /* environment */
@@ -119,8 +119,14 @@ function evaluate(x, env) {
       return evaluate(exp, new Env(properties, env));
     };
   } else {
-    exps = x.map(function(exp) { return evaluate(exp, env) });
-    proc = exps.shift();
-    return proc.apply(null, exps);
+    try {
+      exps = x.map(function(exp) { return evaluate(exp, env) });
+      proc = exps.shift();
+      return proc.apply(null, exps);
+    } catch(e) {
+      console.log(e);
+      return "invalid expression";
+    }
+
   }
 }
